@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Köszönjük — Doksipanda Felnőttképzési Ellenőrzési Protokoll 2026</title>
+    <meta name="robots" content="noindex, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-deep: #0A0E1A;
+            --accent: #1D32F5;
+            --text-primary: #0a0a0a;
+            --text-muted: #58667e;
+            --text-faded: #a0aab8;
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --easing: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-pure);
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.7;
+            font-weight: 300;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            line-height: 1.05;
+        }
+
+        /* ============ NAV ============ */
+        .topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 5%;
+            color: #fff;
+        }
+        .brand-mark {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 8px;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+        }
+
+        /* ============ MAIN ============ */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 130px 5% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background effect */
+        main::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(29,50,245,0.18), transparent 60%);
+            pointer-events: none;
+        }
+        main::after {
+            content: 'DONE';
+            position: absolute;
+            bottom: -4vw;
+            right: -2vw;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(14rem, 28vw, 32rem);
+            color: rgba(255,255,255,0.025);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .success-content {
+            max-width: 760px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .check-mark {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: checkPop 0.7s var(--easing) both;
+        }
+        .check-mark svg {
+            width: 38px;
+            height: 38px;
+            stroke: var(--accent);
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .check-mark svg path {
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: checkDraw 0.6s ease 0.4s forwards;
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes checkDraw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .success-eyebrow {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            margin-bottom: 28px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        h1.success-title {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            color: #fff;
+            margin-bottom: 30px;
+            line-height: 1;
+        }
+        h1.success-title strong {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .success-lead {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.78);
+            line-height: 1.7;
+            margin-bottom: 60px;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .next-steps {
+            text-align: left;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 50px 50px;
+            margin-bottom: 60px;
+        }
+        @media (max-width: 600px) { .next-steps { padding: 35px 28px; } }
+
+        .next-steps h3 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step;
+        }
+        .step-list li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 60px;
+            padding-bottom: 26px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 26px;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+        }
+        .step-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .step-list li::before {
+            content: counter(step, decimal-leading-zero);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+        .step-list li strong {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .btn {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.95rem;
+            padding: 22px 50px;
+            display: inline-block;
+            border: 1px solid #fff;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.4s var(--easing);
+        }
+        .btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(29, 50, 245, 0.35);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+        }
+        footer .copyright {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="/" class="brand-mark">DOKSIPANDA</a>
+</header>
+
+<main>
+    <div class="success-content">
+        <div class="check-mark">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12.5l5 5 9-10"></path>
+            </svg>
+        </div>
+
+        <span class="success-eyebrow">Megerősítve &middot; Megkaptuk a foglalásodat</span>
+        <h1 class="success-title">Köszönjük.<br>24 órán belül <strong>visszaírunk.</strong></h1>
+
+        <p class="success-lead">
+            Megérkezett az elővásárlási kérelmed a Doksipanda Felnőttképzési Ellenőrzési Protokoll 2026 alapítói klub csomagjára.
+        </p>
+
+        <div class="next-steps">
+            <h3>Mi történik most</h3>
+            <ol class="step-list">
+                <li><strong>24 órán belül e-mailben visszaírunk</strong> a megrendelési részletekkel: bankszámlaszám, számlázási adatok megerősítése. Ha nem érkezik meg, érdemes megnézni a spam mappát is.</li>
+                <li><strong>Banki átutalással</strong> tudod rendezni az alapítói klub díját: 97 000 Ft.</li>
+                <li><strong>Számlát küldünk.</strong></li>
+                <li><strong>2026. augusztus 15-én</strong> elsőként &mdash; az elővásárlókkal együtt &mdash; megérkezik hozzád a teljes rendszer e-mailben, letölthető fájlokban.</li>
+            </ol>
+        </div>
+
+        <a href="/" class="btn">Vissza a főoldalra</a>
+    </div>
+</main>
+
+<footer>
+    <p class="copyright">© 2026 DOKSIPANDA &middot; MINDEN JOG FENNTARTVA</p>
+</footer>
+
+</body>
+</html>

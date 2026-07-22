@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elővásárlás — Doksipanda Felnőttképzési Ellenőrzési Protokoll 2026</title>
+    <meta name="description" content="Megjelenés előtti alapítói klub elővásárlás. 97 000 Ft, 2026. augusztus 14-ig.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-deep: #0A0E1A;
+            --bg-soft: #FEFCFB;
+            --bg-paper: #F5F3F0;
+
+            --accent: #1D32F5;
+            --accent-soft: rgba(29, 50, 245, 0.12);
+            --accent-line: rgba(29, 50, 245, 0.25);
+
+            --text-primary: #0a0a0a;
+            --text-secondary: #4B5563;
+            --text-muted: #58667e;
+            --text-faded: #a0aab8;
+
+            --border-soft: #e6e9ef;
+
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            --easing: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+            font-weight: 300;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            line-height: 1.05;
+        }
+
+        .eyebrow {
+            font-family: var(--font-display);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            display: inline-block;
+            margin-bottom: 1.75rem;
+        }
+
+        /* ============ NAV ============ */
+        .topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 5%;
+            color: #fff;
+        }
+        .brand-mark {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 8px;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+        }
+        .topbar-back {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            transition: color 0.3s ease;
+        }
+        .topbar-back:hover { color: var(--accent); }
+
+        /* ============ MAIN CONTENT ============ */
+        main {
+            flex: 1;
+            padding: 130px 5% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 100%; height: 100%;
+            background-image:
+                radial-gradient(circle at 80% 20%, rgba(29,50,245,0.10), transparent 50%);
+            pointer-events: none;
+        }
+
+        .order-container {
+            max-width: 1180px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .order-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 90px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .order-grid { grid-template-columns: 1fr; gap: 50px; }
+            main { padding: 110px 5% 60px; }
+        }
+
+        /* ============ ORDER SUMMARY (LEFT) ============ */
+        .order-summary h1 {
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            color: #fff;
+            margin-bottom: 30px;
+            line-height: 1;
+        }
+        .order-summary h1 strong {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 400;
+        }
+        .order-summary > p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.75;
+            margin-bottom: 40px;
+        }
+
+        .order-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 32px 32px;
+            margin-bottom: 30px;
+        }
+        .order-card-label {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.72rem;
+            color: var(--accent);
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .order-product {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 18px;
+        }
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .order-row .key { color: rgba(255,255,255,0.55); }
+        .order-row .val { color: #fff; font-weight: 500; }
+        .order-row.total {
+            margin-top: 12px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(255,255,255,0.18);
+        }
+        .order-row.total .key {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 600;
+        }
+        .order-row.total .val {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .order-process {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.7;
+        }
+        .order-process strong {
+            display: block;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .order-process ol {
+            list-style: none;
+            counter-reset: step;
+        }
+        .order-process ol li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 36px;
+            padding-bottom: 12px;
+        }
+        .order-process ol li::before {
+            content: counter(step, decimal-leading-zero);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+        }
+
+        /* ============ FORM (RIGHT) ============ */
+        .form-wrap {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 50px 45px;
+        }
+        @media (max-width: 600px) { .form-wrap { padding: 35px 28px; } }
+
+        .form-wrap h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .form-intro-line {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 36px;
+            line-height: 1.6;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+        .field label {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.7);
+            display: block;
+            margin-bottom: 10px;
+        }
+        .field label .req { color: var(--accent); }
+        .field label .hint {
+            font-family: var(--font-body);
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 400;
+            margin-left: 6px;
+        }
+        .field input,
+        .field textarea {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            padding: 14px 16px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, background 0.3s ease;
+            font-weight: 400;
+        }
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(29, 50, 245, 0.05);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 26px;
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.55;
+        }
+        .form-checkbox input { margin-top: 4px; accent-color: var(--accent); flex-shrink: 0; }
+        .form-checkbox a { color: var(--accent); border-bottom: 1px solid var(--accent-line); }
+
+        .form-submit {
+            width: 100%;
+            border: none;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            padding: 22px;
+            background: var(--accent);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .form-submit:hover {
+            background: #fff;
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(29, 50, 245, 0.35);
+        }
+        .form-note {
+            margin-top: 18px;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Honeypot — visually hidden, but a real input for Netlify */
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            width: 1px; height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--bg-pure);
+            color: #fff;
+            padding: 50px 5%;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-row {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-row .logo-footer {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 8px;
+            font-size: 1rem;
+            color: var(--accent);
+        }
+        .footer-row .copyright {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+        }
+        .footer-row .footer-links {
+            display: flex;
+            gap: 30px;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .footer-row .footer-links a {
+            color: var(--text-faded);
+            transition: 0.3s;
+        }
+        .footer-row .footer-links a:hover { color: var(--accent); }
+
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="/" class="brand-mark">DOKSIPANDA</a>
+    <a href="/" class="topbar-back">&larr; Vissza a főoldalra</a>
+</header>
+
+<main>
+    <div class="order-container">
+        <div class="order-grid">
+
+            <!-- LEFT: ORDER SUMMARY -->
+            <div class="order-summary">
+                <span class="eyebrow">Elővásárlás &middot; Alapítói klub</span>
+                <h1>
+                    Igen, kérem<br>
+                    elővásárlással<br>
+                    a <strong>Doksipanda</strong><br>
+                    Protokollt.
+                </h1>
+                <p>
+                    Töltsd ki az űrlapot. 24 órán belül visszaírunk a részletekkel: bankszámlaszám, számlázási adatok megerősítése. A megjelenés napján &mdash; 2026. augusztus 15-én &mdash; megkapod e-mailben a hozzáférést a teljes rendszerhez.
+                </p>
+
+                <div class="order-card">
+                    <div class="order-card-label">A megrendelés</div>
+                    <div class="order-product">Doksipanda Felnőttképzési Ellenőrzési Protokoll 2026</div>
+
+                    <div class="order-row">
+                        <span class="key">Sáv</span>
+                        <span class="val">Megjelenés előtti alapítói klub</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="key">Határidő</span>
+                        <span class="val">2026. augusztus 14.</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="key">Megjelenés</span>
+                        <span class="val">2026. augusztus 15.</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="key">Forma</span>
+                        <span class="val">Letölthető fájlok</span>
+                    </div>
+
+                    <div class="order-row total">
+                        <span class="key">Alapítói ár</span>
+                        <span class="val">97 000 Ft</span>
+                    </div>
+                </div>
+
+                <div class="order-process">
+                    <strong>A folyamat</strong>
+                    <ol>
+                        <li>Kitöltöd az űrlapot.</li>
+                        <li>24 órán belül visszaírunk a fizetési részletekkel.</li>
+                        <li>Banki átutalás.</li>
+                        <li>Számlát küldünk.</li>
+                        <li>2026. augusztus 15-én megérkezik a teljes rendszer.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- RIGHT: NETLIFY FORM -->
+            <div>
+                <div class="form-wrap">
+                    <h2>Helyfoglalás</h2>
+                    <p class="form-intro-line">Az alábbi adatokra a számlához és a kapcsolattartáshoz lesz szükségünk.</p>
+
+                    <!--
+                        NETLIFY FORMS WIRING:
+                        - The `name="order"` attribute identifies this form in the Netlify dashboard.
+                        - `data-netlify="true"` enables form detection at deploy time.
+                        - The hidden `form-name` input is required.
+                        - Honeypot field `bot-field` blocks spam.
+                        - On successful submit, the user is redirected to /success.html
+                        - To view submissions: Netlify dashboard → Forms → "order"
+                    -->
+                    <form
+                        name="order"
+                        method="POST"
+                        data-netlify="true"
+                        data-netlify-honeypot="bot-field"
+                        action="/success.html"
+                    >
+                        <input type="hidden" name="form-name" value="order">
+                        <input type="hidden" name="product" value="Doksipanda Protokoll 2026 — Alapítói klub — 97 000 Ft">
+
+                        <!-- Honeypot (spam trap) -->
+                        <p class="honeypot">
+                            <label>Ne töltsd ki: <input name="bot-field"></label>
+                        </p>
+
+                        <div class="field">
+                            <label for="f-cegnev">Cégnév vagy név <span class="req">*</span></label>
+                            <input type="text" id="f-cegnev" name="cegnev_nev" required autocomplete="organization">
+                        </div>
+
+                        <div class="field">
+                            <label for="f-adoszam">Adószám <span class="hint">(cég esetén)</span></label>
+                            <input type="text" id="f-adoszam" name="adoszam" autocomplete="off" placeholder="pl. 12345678-1-23">
+                        </div>
+
+                        <div class="field">
+                            <label for="f-cim">Székhely vagy lakcím <span class="req">*</span></label>
+                            <input type="text" id="f-cim" name="szekhely_lakcim" required autocomplete="street-address">
+                        </div>
+
+                        <div class="field">
+                            <label for="f-kapcsolat">Kapcsolattartó neve <span class="req">*</span></label>
+                            <input type="text" id="f-kapcsolat" name="kapcsolattarto_neve" required autocomplete="name">
+                        </div>
+
+                        <div class="field">
+                            <label for="f-email">E-mail cím <span class="req">*</span></label>
+                            <input type="email" id="f-email" name="email" required autocomplete="email">
+                        </div>
+
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="elfogadas" required>
+                            <span>Elolvastam és elfogadom az <a href="#">adatkezelési tájékoztatót</a>, és tudomásul veszem, hogy ez egy elővásárlás &mdash; a terméket 2026. augusztus 15-én publikáljuk.</span>
+                        </label>
+
+                        <button type="submit" class="form-submit">Helyfoglalás &middot; 97 000 Ft</button>
+                        <div class="form-note">24 órán belül visszaírunk a fizetési részletekkel.</div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-row">
+        <span class="logo-footer">DOKSIPANDA</span>
+        <div class="footer-links">
+            <a href="#">ÁSZF</a>
+            <a href="#">Adatkezelés</a>
+            <a href="#">Impresszum</a>
+        </div>
+        <p class="copyright">© 2026 DOKSIPANDA</p>
+    </div>
+</footer>
+
+</body>
+</html>

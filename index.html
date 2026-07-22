@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doksipanda — Felnőttképzési Ellenőrzési Protokoll 2026</title>
+    <meta name="description" content="72 óra alatt önkiszolgáló átvilágítás képzéseknél felnőttképzési ellenőrzésre.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-deep: #0A0E1A;
+            --bg-soft: #FEFCFB;
+            --bg-paper: #F5F3F0;
+            --bg-mist: #f1f4f8;
+
+            --accent: #1D32F5;
+            --accent-soft: rgba(29, 50, 245, 0.12);
+            --accent-line: rgba(29, 50, 245, 0.25);
+
+            --signal-red: #C42021;
+            --signal-amber: #E0A82E;
+            --signal-grey: #9aa3b2;
+
+            --text-primary: #0a0a0a;
+            --text-secondary: #4B5563;
+            --text-muted: #58667e;
+            --text-faded: #a0aab8;
+
+            --border-soft: #e6e9ef;
+            --border-dark: rgba(255, 255, 255, 0.08);
+
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            --easing: cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-slow: all 1s var(--easing);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-soft);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            line-height: 1.05;
+        }
+
+        .eyebrow {
+            font-family: var(--font-display);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            display: inline-block;
+            margin-bottom: 1.75rem;
+        }
+        .eyebrow.muted { color: var(--text-muted); }
+
+        h2 {
+            font-size: clamp(2rem, 4.5vw, 3.8rem);
+            margin-bottom: 2rem;
+        }
+        h3 {
+            font-size: clamp(1.4rem, 2.2vw, 2rem);
+        }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
+        .container-slim { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+        .container-tight { max-width: 880px; margin: 0 auto; padding: 0 5%; }
+
+        section { position: relative; }
+        .pad-section { padding: 140px 0; }
+        .pad-section-lg { padding: 180px 0; }
+
+        @media (max-width: 768px) {
+            .pad-section { padding: 90px 0; }
+            .pad-section-lg { padding: 110px 0; }
+        }
+
+        /* ============ REVEAL ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition-slow);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-slow);
+        }
+        .reveal-stagger.active > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+        .reveal-stagger.active > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+        .reveal-stagger.active > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+        .reveal-stagger.active > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+        .reveal-stagger.active > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+        .reveal-stagger.active > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+
+        /* ============ NAV ============ */
+        .topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 5%;
+            mix-blend-mode: difference;
+            color: #fff;
+            pointer-events: none;
+        }
+        .topbar > * { pointer-events: auto; }
+        .brand-mark {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 8px;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+        }
+        .topbar-meta {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        @media (max-width: 700px) {
+            .topbar-meta { display: none; }
+        }
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.95rem;
+            padding: 24px 56px;
+            display: inline-block;
+            border: 1px solid currentColor;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.4s var(--easing);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(29, 50, 245, 0.35);
+        }
+        .btn-on-light {
+            color: #000;
+            border-color: #000;
+        }
+        .btn-on-light:hover {
+            background: #000;
+            border-color: #000;
+            color: #fff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .btn-filled {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .btn-filled:hover {
+            background: #fff;
+            color: var(--accent);
+            border-color: #fff;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            background: var(--bg-pure);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+/* Hero háttérkép beállítása - Színes, modern verzió */
+.hero-bg-image {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* Egy modern, tiszta irodai/laptopos kép vibráló színekkel */
+    background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2026'); 
+    background-size: cover;
+    background-position: center;
+    opacity: 0.55; /* Maradt a 30-40% közötti tartomány */
+    /* Itt most NEM alkalmazunk grayscale szűrőt, hogy maradjanak a színek */
+    pointer-events: none;
+}
+        .hero-grain {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(29,50,245,0.18), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(29,50,245,0.10), transparent 55%);
+            pointer-events: none;
+        }
+        .hero-noise {
+            position: absolute;
+            inset: 0;
+            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+        .hero-72 {
+            position: absolute;
+            right: -3vw;
+            bottom: -8vw;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(20rem, 42vw, 50rem);
+            line-height: 0.78;
+            color: rgba(255, 255, 255, 0.04);
+            letter-spacing: -0.05em;
+            pointer-events: none;
+            user-select: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            padding: 180px 5% 100px;
+            display: grid;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: 80px;
+            align-items: end;
+        }
+        @media (max-width: 900px) {
+            .hero-content { grid-template-columns: 1fr; gap: 50px; padding: 140px 5% 70px; }
+        }
+        .hero-tag {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 50px;
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .hero-tag-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 6.2vw, 5.6rem);
+            line-height: 0.95;
+            letter-spacing: -2px;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        .hero h1 .accent-word {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 400;
+        }
+        .hero-sub {
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.72);
+            max-width: 600px;
+            margin-bottom: 50px;
+            line-height: 1.7;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .hero-meta {
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            padding-left: 28px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.6;
+        }
+        .hero-meta strong {
+            font-family: var(--font-display);
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #fff;
+            display: block;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+        }
+        .hero-side {
+            border-left: 1px solid rgba(255,255,255,0.1);
+            padding-left: 30px;
+        }
+        .hero-side-label {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 18px;
+            display: block;
+        }
+        .hero-side-list { list-style: none; }
+        .hero-side-list li {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-display);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .hero-side-list li span:last-child { color: #fff; font-weight: 500; }
+
+        /* ============ INTRO BAND ============ */
+        .intro-band {
+            background: var(--bg-deep);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .intro-band::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 1px; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            opacity: 0.5;
+        }
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        @media (max-width: 900px) { .intro-grid { grid-template-columns: 1fr; gap: 40px; } }
+        .intro-line {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+            line-height: 1.3;
+            color: #fff;
+        }
+        .intro-paragraph {
+            color: var(--text-faded);
+            font-size: 1.1rem;
+            line-height: 1.85;
+        }
+        .intro-paragraph p { margin-bottom: 20px; }
+        .intro-paragraph p:last-child { margin-bottom: 0; }
+
+        /* ============ JOL DOLGOZOL BAND ============ */
+        .joldolgozol {
+            background: var(--bg-soft);
+            padding: 160px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .joldolgozol::after {
+            content: 'OK.';
+            position: absolute;
+            right: -2vw;
+            bottom: -3vw;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(14rem, 28vw, 32rem);
+            color: rgba(0,0,0,0.025);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            pointer-events: none;
+            user-select: none;
+        }
+        .joldolgozol-content {
+            max-width: 920px;
+            position: relative;
+            z-index: 2;
+        }
+        .joldolgozol-headline {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #000;
+            line-height: 1;
+            margin-bottom: 50px;
+            letter-spacing: -2px;
+        }
+        .joldolgozol-headline span {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 400;
+        }
+        .joldolgozol-text {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 760px;
+        }
+        .joldolgozol-text p { margin-bottom: 24px; }
+        .joldolgozol-text p:last-child { margin-bottom: 0; }
+        .joldolgozol-text strong { color: #000; font-weight: 500; }
+
+        /* ============ IS / IS NOT ============ */
+        .is-isnot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            background: var(--border-soft);
+            margin-top: 70px;
+        }
+        @media (max-width: 800px) { .is-isnot-grid { grid-template-columns: 1fr; } }
+        .is-isnot-cell {
+            background: #fff;
+            padding: 70px 60px;
+        }
+        .is-isnot-cell.dark {
+            background: var(--bg-pure);
+            color: #fff;
+        }
+        .is-isnot-label {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.78rem;
+            margin-bottom: 30px;
+            display: block;
+        }
+        .is-isnot-cell .is-isnot-label { color: var(--signal-red); }
+        .is-isnot-cell.dark .is-isnot-label { color: var(--accent); }
+        .is-isnot-list { list-style: none; }
+        .is-isnot-list li {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-soft);
+            font-size: 1.1rem;
+            font-weight: 400;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .is-isnot-cell.dark .is-isnot-list li { border-color: rgba(255,255,255,0.08); color: #fff; }
+        .is-isnot-list li::before {
+            content: "—";
+            color: var(--signal-red);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .is-isnot-cell.dark .is-isnot-list li::before { color: var(--accent); }
+
+        .is-isnot-headline {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            line-height: 1.2;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 30px;
+        }
+        .is-isnot-cell.dark .is-isnot-headline strong {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        /* ============ AUTHOR ============ */
+        .author-section { background: var(--bg-soft); }
+        .author-grid {
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            gap: 90px;
+            align-items: center;
+        }
+        @media (max-width: 900px) { .author-grid { grid-template-columns: 1fr; gap: 50px; } }
+        .author-image {
+            aspect-ratio: 4 / 5;
+            background: var(--bg-mist);
+            border-left: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        .author-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.3) contrast(1.05);
+        }
+        .author-stat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .author-stat {
+            font-family: var(--font-display);
+        }
+        .author-stat .stat-num {
+            font-size: clamp(2.5rem, 4vw, 3.6rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .author-stat .stat-label {
+            font-size: 0.82rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .author-quote {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: #000;
+            margin-top: 30px;
+            padding-left: 24px;
+            border-left: 2px solid var(--accent);
+        }
+
+        /* ============ WHY NOW ============ */
+        .whynow-section {
+            background: var(--bg-pure);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .whynow-section::after {
+            content: '2026';
+            position: absolute;
+            bottom: -3vw;
+            right: -1vw;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(12rem, 24vw, 28rem);
+            line-height: 0.8;
+            color: rgba(255,255,255,0.03);
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -0.05em;
+        }
+        .whynow-content {
+            max-width: 880px;
+            position: relative;
+            z-index: 2;
+        }
+        .whynow-content h2 {
+            color: #fff;
+            margin-bottom: 40px;
+        }
+        .whynow-content h2 strong {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 400;
+        }
+        .whynow-content p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.78);
+            line-height: 1.75;
+        }
+
+        /* ============ PROTOCOL TIMELINE ============ */
+        .protocol-section {
+            background: var(--bg-soft);
+            position: relative;
+            overflow: hidden;
+        }
+        .protocol-bg-72 {
+            position: absolute;
+            top: -50px;
+            right: -3vw;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(15rem, 25vw, 30rem);
+            color: rgba(0,0,0,0.025);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+        .protocol-header { margin-bottom: 80px; position: relative; z-index: 2; }
+        .protocol-header h2 strong { color: var(--accent); font-style: italic; font-weight: 400; }
+
+        .protocol-day {
+            display: grid;
+            grid-template-columns: 0.4fr 1.6fr;
+            gap: 60px;
+            padding: 70px 0;
+            border-top: 1px solid var(--border-soft);
+            position: relative;
+            z-index: 2;
+        }
+        @media (max-width: 800px) { .protocol-day { grid-template-columns: 1fr; gap: 30px; } }
+        .protocol-day:last-child { border-bottom: 1px solid var(--border-soft); }
+
+        .protocol-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(4rem, 7vw, 7rem);
+            line-height: 0.85;
+            color: #000;
+        }
+        .protocol-num small {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-top: 18px;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+        }
+        .protocol-day-title {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            color: #000;
+        }
+        .protocol-day-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+        .protocol-deliverable {
+            background: var(--bg-paper);
+            border-left: 3px solid var(--accent);
+            padding: 24px 28px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            max-width: 700px;
+        }
+        .protocol-deliverable strong {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* ============ WHAT YOU'LL SEE ============ */
+        .seetable-section {
+            background: var(--bg-pure);
+            color: #fff;
+        }
+        .seetable {
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .seetable-row {
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            gap: 60px;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: background 0.3s ease;
+        }
+        .seetable-row:hover {
+            background: rgba(29, 50, 245, 0.05);
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        @media (max-width: 800px) { .seetable-row { grid-template-columns: 1fr; gap: 12px; padding: 30px 0; } }
+        .seetable-key {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 1.15rem;
+            color: var(--accent);
+        }
+        .seetable-val {
+            color: rgba(255,255,255,0.78);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* ============ INCLUDED MODULES ============ */
+        .modules-section { background: var(--bg-soft); }
+        .modules-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 80px;
+            align-items: end;
+        }
+        @media (max-width: 800px) { .modules-header { grid-template-columns: 1fr; gap: 30px; } }
+        .modules-header p {
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            max-width: 480px;
+            margin-left: auto;
+            line-height: 1.75;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        @media (max-width: 800px) { .modules-grid { grid-template-columns: 1fr; gap: 20px; } }
+
+        .module-card {
+            background: #fff;
+            padding: 50px 45px;
+            border-bottom: 4px solid #000;
+            transition: var(--transition-slow);
+            position: relative;
+        }
+        .module-card:hover {
+            border-bottom-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+        }
+        .module-num {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            display: block;
+        }
+        .module-card h3 {
+            font-size: 1.55rem;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.2;
+        }
+        .module-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+        .module-mini-list {
+            list-style: none;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .module-mini-list li {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            padding: 6px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .module-mini-list li::before {
+            content: "›";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: 600;
+        }
+
+        .module-card.full {
+            grid-column: 1 / -1;
+            background: var(--bg-pure);
+            color: #fff;
+            border-bottom: 4px solid var(--accent);
+            padding: 70px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .module-card.full::after {
+            content: "PRIO";
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            font-family: var(--font-display);
+            font-size: 12rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.03);
+            line-height: 0.7;
+            letter-spacing: -0.05em;
+        }
+        .module-card.full h3 { color: #fff; font-size: 2rem; }
+        .module-card.full p { color: rgba(255,255,255,0.7); }
+
+        .priority-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 32px;
+            position: relative;
+            z-index: 2;
+        }
+        @media (max-width: 700px) { .priority-row { grid-template-columns: 1fr; } }
+        .priority-cell {
+            border-left: 4px solid;
+            padding: 20px 22px;
+            background: rgba(255,255,255,0.03);
+        }
+        .priority-cell.red { border-color: var(--signal-red); }
+        .priority-cell.amber { border-color: var(--signal-amber); }
+        .priority-cell.grey { border-color: var(--signal-grey); }
+        .priority-cell strong {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.78rem;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .priority-cell.red strong { color: var(--signal-red); }
+        .priority-cell.amber strong { color: var(--signal-amber); }
+        .priority-cell.grey strong { color: var(--signal-grey); }
+        .priority-cell .priority-when {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 6px;
+        }
+        .priority-cell .priority-ex {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            font-style: italic;
+        }
+
+        /* ============ ADDITIONAL TOOLS ============ */
+        .additional-band {
+            background: var(--bg-paper);
+            padding: 100px 0;
+        }
+        .additional-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        @media (max-width: 900px) { .additional-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px) { .additional-grid { grid-template-columns: 1fr; } }
+        .additional-item {
+            border-top: 2px solid var(--accent);
+            padding-top: 24px;
+        }
+        .additional-item h4 {
+            font-size: 1.1rem;
+            color: #000;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .additional-item p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ============ BONUSES ============ */
+        .bonus-section { background: var(--bg-pure); color: #fff; overflow: hidden; }
+        .bonus-section h2 strong { color: var(--accent); font-style: italic; font-weight: 400; }
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 70px;
+        }
+        @media (max-width: 900px) { .bonus-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .bonus-grid { grid-template-columns: 1fr; } }
+
+        .bonus-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 45px 38px;
+            position: relative;
+            transition: 0.5s var(--easing);
+        }
+        .bonus-card:hover {
+            background: rgba(29, 50, 245, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-6px);
+        }
+        .bonus-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .bonus-num::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent);
+        }
+        .bonus-card h3 {
+            font-size: 1.35rem;
+            color: #fff;
+            margin-bottom: 18px;
+            line-height: 1.2;
+        }
+        .bonus-card p {
+            color: rgba(255,255,255,0.65);
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+        .bonus-card.featured {
+            grid-column: span 3;
+            background: var(--accent);
+            border-color: var(--accent);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            padding: 60px 50px;
+            align-items: center;
+        }
+        @media (max-width: 900px) { .bonus-card.featured { grid-column: span 2; grid-template-columns: 1fr; gap: 30px; } }
+        @media (max-width: 600px) { .bonus-card.featured { grid-column: span 1; } }
+        .bonus-card.featured:hover { transform: translateY(-6px); background: var(--accent); }
+        .bonus-card.featured .bonus-num { color: rgba(255,255,255,0.9); }
+        .bonus-card.featured .bonus-num::before { background: rgba(255,255,255,0.5); }
+        .bonus-card.featured h3 { font-size: 1.9rem; color: #fff; }
+        .bonus-card.featured p { color: rgba(255,255,255,0.92); font-size: 1.05rem; }
+        .bonus-tag {
+            display: inline-block;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.72rem;
+            background: rgba(255,255,255,0.18);
+            padding: 6px 12px;
+            margin-bottom: 18px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ============ PRICING ============ */
+        .pricing-section {
+            background: var(--bg-soft);
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-bg-text {
+            position: absolute;
+            bottom: -40px;
+            left: -2vw;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(10rem, 22vw, 26rem);
+            line-height: 0.8;
+            color: rgba(0,0,0,0.025);
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -0.05em;
+        }
+        .pricing-header { margin-bottom: 80px; position: relative; z-index: 2; max-width: 760px; }
+        .pricing-header h2 strong { color: var(--accent); font-style: italic; font-weight: 400; }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 0.9fr 1.2fr;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+        .price-card {
+            background: #fff;
+            border: 1px solid var(--border-soft);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.5s var(--easing);
+            position: relative;
+        }
+        .price-card.muted { opacity: 0.6; }
+        .price-card.muted .price-amount { text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.4); text-decoration-thickness: 2px; }
+        .price-tier {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+        .price-amount {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(2.5rem, 4vw, 3.6rem);
+            line-height: 1;
+            color: #000;
+            letter-spacing: -1px;
+        }
+        .price-amount .price-currency {
+            font-size: 0.5em;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-left: 8px;
+        }
+        .price-when {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-top: 24px;
+            line-height: 1.5;
+        }
+        .price-card.featured {
+            background: #000;
+            border-color: #000;
+            color: #fff;
+            transform: scale(1.03);
+        }
+        .price-card.featured .price-tier { color: rgba(255,255,255,0.7); }
+        .price-card.featured .price-amount { color: #fff; }
+        .price-card.featured .price-amount .price-currency { color: rgba(255,255,255,0.5); }
+        .price-card.featured .price-when { color: rgba(255,255,255,0.85); }
+        .price-tag-now {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.7rem;
+            background: var(--accent);
+            color: #fff;
+            padding: 6px 12px;
+        }
+        .price-card.featured .btn {
+            margin-top: 32px;
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .price-card.featured .btn:hover {
+            background: #fff;
+            color: var(--accent);
+            border-color: #fff;
+            box-shadow: 0 20px 40px rgba(255,255,255,0.15);
+        }
+
+        /* ============ COUNTDOWN ============ */
+        .countdown-block {
+            margin-top: 80px;
+            padding: 50px 40px;
+            background: var(--bg-pure);
+            color: #fff;
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        @media (max-width: 800px) { .countdown-block { grid-template-columns: 1fr; gap: 30px; padding: 40px 30px; } }
+        .countdown-label {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+        }
+        .countdown-label-eyebrow {
+            font-size: 0.78rem;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 14px;
+            display: block;
+            font-weight: 600;
+        }
+        .countdown-label-title {
+            font-size: 1.4rem;
+            color: #fff;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+        }
+        .countdown-timer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .countdown-cell {
+            text-align: center;
+            padding: 18px 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .countdown-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+        .countdown-unit {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+
+        /* ============ FORMAT BLOCK ============ */
+        .format-band {
+            background: var(--bg-paper);
+            padding: 100px 0;
+        }
+        .format-content { max-width: 920px; }
+        .format-content h2 {
+            font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+            margin-bottom: 30px;
+            color: #000;
+        }
+        .format-content p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .format-content strong { color: var(--accent); font-weight: 500; }
+
+        /* ============ FINAL DISCLAIMER ============ */
+        .disclaimer-band {
+            background: var(--bg-pure);
+            color: #fff;
+            padding: 130px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .disclaimer-band::before {
+            content: 'FONTOS';
+            position: absolute;
+            bottom: -3vw;
+            left: -2vw;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(9rem, 18vw, 22rem);
+            color: rgba(255,255,255,0.025);
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            pointer-events: none;
+            user-select: none;
+        }
+        .disclaimer-content {
+            position: relative;
+            z-index: 2;
+            max-width: 920px;
+        }
+        .disclaimer-content h2 {
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+        }
+        .disclaimer-content p {
+            font-size: 1.15rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 24px;
+        }
+        .disclaimer-content p:last-child { margin-bottom: 0; }
+        .disclaimer-content strong { color: #fff; font-weight: 500; }
+
+        /* ============ FINAL CTA ============ */
+        .final-cta {
+            background: var(--accent);
+            padding: 130px 0;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta-content {
+            text-align: center;
+            max-width: 880px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .final-cta h2 {
+            color: #fff;
+            font-size: clamp(2.2rem, 5vw, 4.2rem);
+            margin-bottom: 40px;
+            line-height: 1.05;
+        }
+        .final-cta-meta {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 40px;
+        }
+        .final-cta .btn {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+            padding: 28px 70px;
+            font-size: 1.05rem;
+        }
+        .final-cta .btn:hover {
+            background: #fff;
+            color: var(--accent);
+            border-color: #fff;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--bg-pure);
+            color: #fff;
+            padding: 100px 5% 50px;
+        }
+        .footer-image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            max-width: 100%;
+            margin-bottom: 90px;
+        }
+        @media (max-width: 700px) { .footer-image-grid { grid-template-columns: repeat(2, 1fr); } }
+        .footer-image-grid .grid-item {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
+        }
+        .footer-image-grid .grid-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) contrast(1.1) brightness(0.55);
+            transition: 0.6s var(--easing);
+        }
+        .footer-image-grid .grid-item:hover img {
+            filter: grayscale(0) contrast(1) brightness(1);
+            transform: scale(1.05);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 70px;
+            max-width: 1280px;
+            margin: 0 auto 70px;
+        }
+        @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr; gap: 40px; } }
+        .footer-brand .logo-footer {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 8px;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            display: block;
+            color: var(--accent);
+        }
+        .footer-tagline {
+            font-size: 0.92rem;
+            color: var(--text-faded);
+            max-width: 320px;
+            line-height: 1.7;
+        }
+        .footer-nav h4 {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            color: #fff;
+            font-weight: 600;
+        }
+        .footer-nav ul { list-style: none; }
+        .footer-nav ul li { margin-bottom: 12px; }
+        .footer-nav ul li a {
+            color: var(--text-faded);
+            font-size: 0.92rem;
+            transition: 0.3s;
+        }
+        .footer-nav ul li a:hover { color: var(--accent); padding-left: 8px; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+        }
+        .footer-meta {
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- ============================================== -->
+<!-- TOP BAR -->
+<!-- ============================================== -->
+<header class="topbar">
+    <a href="/" class="brand-mark">DOKSIPANDA</a>
+    <div class="topbar-meta">Megjelenés &middot; 2026.08.15</div>
+</header>
+
+<!-- ============================================== -->
+<!-- 01. HERO -->
+<!-- ============================================== -->
+<section class="hero">
+
+    <div class="hero-bg-image"></div> <div class="hero-grain"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-72">72</div>
+
+
+    <div class="hero-grain"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-72">72</div>
+
+    <div class="hero-content">
+        <div class="reveal">
+            <div class="hero-tag">
+                <span class="hero-tag-dot"></span>
+                <span>Felnőttképzési ellenőrzésekről információ</span>
+            </div>
+
+            <h1>
+                Felnőttképzési<br>
+                Ellenőrzési<br>
+                Protokoll <span class="accent-word">2026.</span>
+            </h1>
+
+            <p class="hero-sub">
+                Önkiszolgáló átvilágítás képzéseknél felnőttképzési ellenőrzésre 
+            </p>
+
+           
+            </div>
+        </div>
+
+        
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 02. INTRO BAND — verbatim from PDF -->
+<!-- ============================================== -->
+<section class="intro-band pad-section">
+    <div class="container">
+        <div class="intro-grid">
+            <div class="reveal">
+                <span class="eyebrow">Bevezető</span>
+                <p class="intro-line">
+                    Avagy komplett rendszer, hogy saját magad is átvilágíthasd a képzéseket, 72 óra alatt, hogy ne &bdquo;csak&rdquo; jól működjenek, hanem a dokumentációk és a honlap is ezt mutassa egy felnőttképzési ellenőrzésnél.
+                </p>
+            </div>
+           
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 03. JOL DOLGOZOL — verbatim -->
+<!-- ============================================== -->
+<section class="joldolgozol">
+    <div class="container">
+        <div class="joldolgozol-content reveal">
+            <h2 class="joldolgozol-headline">
+                Jól dolgozol.<br>
+                Jók a <span>képzéseitek.</span>
+            </h2>
+            <div class="joldolgozol-text">
+                <p>A jóhiszemű működés akkor látható igazán, ha a <strong>dokumentáció is pontosan és következetesen</strong> mutatja a jó képzéseket.</p>
+                <p>Az önkiszolgáló felnőttképzési átvilágítással megtalálod majd azokat a pontokat a képzéseid dokumentációjában, ahol a dokumentáció félreérthető, hiányos vagy nincs összhangban a gyakorlattal.</p>
+                <p>A teljes anyag átnézése után megtudhatod, hogy a felnőttképzési dokumentációd felnőttképzési ellenőrzési helyzetben is világosan, következetesen és védhetően mutatja-e a képzéseidet.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 04. WHAT IT IS / IS NOT — verbatim -->
+<!-- ============================================== -->
+<section class="pad-section" style="background: var(--bg-soft);">
+    <div class="container">
+        <div class="reveal">
+            <span class="eyebrow">A Doksipanda Felnőttképzési Ellenőrzési Protokoll 2026</span>
+        </div>
+
+        <div class="is-isnot-grid reveal">
+            <div class="is-isnot-cell">
+                <span class="is-isnot-label">Nem ez</span>
+                <ul class="is-isnot-list">
+                    <li>Nem felnőttképzési hatósági audit</li>
+                    <li>Nem jogi szakvélemény</li>
+                    <li>Nem felnőttképzési tanácsadás</li>
+                    <li>Nem ellenőrzési garancia</li>
+                    <li>Nem kiskapu</li>
+                </ul>
+            </div>
+            <div class="is-isnot-cell dark">
+                <span class="is-isnot-label">Hanem</span>
+                <p class="is-isnot-headline">
+                    A felnőttképzési ellenőrzésre <strong>önálló felkészülést</strong> lehetővé tévő módszer.
+                </p>
+                <p style="margin-top: 30px; color: rgba(255,255,255,0.78); font-size: 1.05rem; line-height: 1.7;">
+                    Önálló, gyakorlati felnőttképzési ellenőrzésre felkészülési rendszer, amely segít rendezettebben látnod, mit mutat a felnőttképzési dokumentáció, a honlap és a jelentkezési folyamat. Nem paragrafus-magolás. Felnőttképzési ellenőrzési szemlélet.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 05. AUTHOR — verbatim -->
+<!-- ============================================== -->
+<section class="author-section pad-section-lg">
+    <div class="container">
+        <div class="author-grid">
+            <div class="author-image reveal">
+                <!-- IMAGE-SWAP: Replace src with the author's actual portrait. 4:5 ratio recommended. -->
+                <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=600&q=80" alt="Felnőttképzési ellenőrzési protokoll">
+            </div>
+
+            <div class="reveal">
+                <span class="eyebrow">A szerző</span>
+                <h2>200+ szemle.<br>Egy <strong style="color: var(--accent); font-style: italic; font-weight: 400;">módszertanba</strong> sűrítve.</h2>
+
+                <p style="font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.75;">
+                    A felnőttképzési ellenőrzési önkiszolgáló módszertant <strong style="color: #000; font-weight: 500;">volt felnőttképzési szakértő és korábbi piacvezető felnőttképzési tanácsadó</strong> állította össze, több mint 200 szemle és ellenőrzési helyzet gyakorlati tapasztalatával.
+                </p>
+
+                <p class="author-quote">
+                    A módszertan gyakorlati, piaci tapasztalatra épül, nem hatósági ígéretre, nem kapcsolati rendszerre és nem belső információkra.
+                </p>
+
+                <div class="author-stat-row">
+                    <div class="author-stat">
+                        <div class="stat-num">200+</div>
+                        <div class="stat-label">szemle &middot; ellenőrzés</div>
+                    </div>
+                    <div class="author-stat">
+                        <div class="stat-num">72h</div>
+                        <div class="stat-label">protokoll &middot; saját kezűleg</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 06. WHY NOW — verbatim -->
+<!-- ============================================== -->
+<section class="whynow-section pad-section">
+    <div class="container">
+        <div class="whynow-content reveal">
+            <span class="eyebrow">Miért most?</span>
+            <h2>A felnőttképzésben is <strong>új korszak</strong> jön.</h2>
+            <p>
+                Azok a képzők lesznek előnyben, akik felnőttképzési-ellenőrzés kompatibilisen, pontosan és transzparensen menedzselik a képzések dokumentációját.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 07. THE 72-HOUR PROTOCOL — copy from the table -->
+<!-- ============================================== -->
+<section class="protocol-section pad-section-lg">
+    <div class="protocol-bg-72">72H</div>
+
+    <div class="container">
+        <div class="protocol-header reveal">
+            <span class="eyebrow">A protokoll</span>
+            <h2>72 óra alatt elkészítheted<br>a saját <strong>protokollod.</strong></h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 640px; line-height: 1.75;">
+                A módszer megjelenése után (megjelenés dátuma: 2026. augusztus 15.) három napot kell rászánnod &mdash; saját kezűleg.
+            </p>
+        </div>
+
+        <div class="protocol-day reveal">
+            <div class="protocol-num">
+                01<small>1. nap &middot; 24 óra</small>
+            </div>
+            <div>
+                <h3 class="protocol-day-title">Külső kép</h3>
+                <p class="protocol-day-desc">
+                    Honlap, képzési oldalak, képzési programok, jelentkezési útvonal, alapvető tájékoztatók.
+                </p>
+                <div class="protocol-deliverable">
+                    <strong>Eredmény</strong>
+                    Láthatod majd, mit mutatnak kifelé a képzések, egy felnőttképzési szakértő egy ellenőrzésen mit fog nézni.
+                </div>
+            </div>
+        </div>
+
+        <div class="protocol-day reveal">
+            <div class="protocol-num">
+                02<small>2. nap &middot; 48 óra</small>
+            </div>
+            <div>
+                <h3 class="protocol-day-title">Belső dokumentáció</h3>
+                <p class="protocol-day-desc">
+                    Jelenléti ívek, haladási napló, képzési programok megvalósítása, szerződés, FAR, minőségirányítás.
+                </p>
+                <div class="protocol-deliverable">
+                    <strong>Eredmény</strong>
+                    Megtalálod majd a legfőbb lehetséges, félreértelmezhető ellentmondásokat és hiányokat, úgy, ahogy egy felnőttképzési szakértő megtalálja ezeket.
+                </div>
+            </div>
+        </div>
+
+        <div class="protocol-day reveal">
+            <div class="protocol-num">
+                03<small>3. nap &middot; 72 óra</small>
+            </div>
+            <div>
+                <h3 class="protocol-day-title">Ellenőrzési helyzet</h3>
+                <p class="protocol-day-desc">
+                    Jegyzőkönyv, kommunikáció, vezetői felkészítés, javítási sorrend.
+                </p>
+                <div class="protocol-deliverable">
+                    <strong>Eredmény</strong>
+                    A 72 óra végére kész lesz a felnőttképzési ellenőrzési kockázati térkép és a to-do-list, a csekklistád, mit érdemes alaposabban átnézni.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 08. WHAT YOU'LL SEE — verbatim table -->
+<!-- ============================================== -->
+<section class="seetable-section pad-section-lg">
+    <div class="container">
+        <div class="reveal" style="max-width: 760px;">
+            <span class="eyebrow">A kimenet</span>
+            <h2 style="color: #fff;">Mit látsz majd?<br>Mit jelent ez a <strong style="color: var(--accent); font-style: italic; font-weight: 400;">gyakorlatban?</strong></h2>
+        </div>
+
+        <div class="seetable reveal">
+            <div class="seetable-row">
+                <div class="seetable-key">Dokumentációs hiányok</div>
+                <div class="seetable-val">Mi nincs meg, mi nem található, milyen adatok nincsenek jól összekötve egymással a képzési papírokban.</div>
+            </div>
+            <div class="seetable-row">
+                <div class="seetable-key">Ellentmondások</div>
+                <div class="seetable-val">Mi mond mást a papíron, a honlapon, a FAR-ban vagy a gyakorlatban és ezt hogyan fogja látni egy felnőttképzési szakértő a felnőttképzési ellenőrzésen.</div>
+            </div>
+            <div class="seetable-row">
+                <div class="seetable-key">Jegyzőkönyvi kockázatok</div>
+                <div class="seetable-val">Milyen mondatok és helyzetek lehetnek később félreértelmezhetőek.</div>
+            </div>
+            <div class="seetable-row">
+                <div class="seetable-key">Honlap, első benyomás</div>
+                <div class="seetable-val">Mit mutattok kifelé, mint képző, egy felnőttképzési ellenőrzésnél egy szakértő szemének.</div>
+            </div>
+            <div class="seetable-row">
+                <div class="seetable-key">Javítási sorrend</div>
+                <div class="seetable-val">Mit érdemes elsőként rendbe tenni. Ez nem arról szól, hogy nem jól dolgoztok, hanem arról, hogy egy felnőttképzési szakértő elsősorban a megfelelést nézi a képzéseknél.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 09. WHAT'S INCLUDED — 5 modules, verbatim -->
+<!-- ============================================== -->
+<section class="modules-section pad-section-lg">
+    <div class="container">
+        <div class="modules-header">
+            <div class="reveal">
+                <span class="eyebrow">Mit tartalmaz?</span>
+                <h2>Doksipanda Felnőttképzési<br>Ellenőrzési Protokoll <strong style="color: var(--accent); font-style: italic; font-weight: 400;">2026</strong></h2>
+            </div>
+        </div>
+
+        <div class="modules-grid reveal-stagger">
+
+            <div class="module-card">
+                <span class="module-num">01 &middot; Modul</span>
+                <h3>Felnőttképzési Ellenőrzési Kockázati Térkép</h3>
+                <p>Egy kitölthető felnőttképzési önellenőrző rendszer, csekklistákkal, amelyből megtudhatod, hogy felnőttképzési szakértői szemmel:</p>
+                <ul class="module-mini-list">
+                    <li>mely dokumentumok hiányoznak</li>
+                    <li>melyek ellentmondásosak</li>
+                    <li>hol vannak piros zászlók</li>
+                    <li>mi az, ami &bdquo;papíron rosszul néz ki&rdquo;</li>
+                    <li>mit kell elsőként javítani</li>
+                    <li>a honlap hibái (nem a dizájnt nézik elsősorban)</li>
+                </ul>
+            </div>
+
+            <div class="module-card">
+                <span class="module-num">02 &middot; Modul</span>
+                <h3>12 dokumentációs akna, amelyen a jó képzők is gyakran elcsúsznak</h3>
+                <p>Nem általános hibák. Hanem azok, amelyeket általában nehezen lehet észrevenni. Példák:</p>
+                <ul class="module-mini-list">
+                    <li>jelenléti ív és haladási napló ellentmondása</li>
+                    <li>képzési program és tényleges megvalósítás eltérése</li>
+                    <li>zombi-minőségirányítás: vannak dokumentálatlanul folyamatok</li>
+                    <li>nem bizonyítható panaszkezelés</li>
+                    <li>hibás vagy hiányos előzetes tudásmérés</li>
+                    <li>FAR/adatszolgáltatási ellentmondások &mdash; és további pontok</li>
+                </ul>
+            </div>
+
+            <div class="module-card">
+                <span class="module-num">03 &middot; Modul</span>
+                <h3>Jegyzőkönyvi Mondatbank Felnőttképzési Ellenőrzésre</h3>
+                <p>Hideg, tárgyszerű, védhető megfogalmazások ellenőrzési helyzetekre. Példák:</p>
+                <ul class="module-mini-list">
+                    <li>mit írjunk, ha egy adat pontosításra vár</li>
+                    <li>hogyan jelezzünk észrevételt</li>
+                    <li>hogyan ne magyarázkodjuk túl a dolgokat</li>
+                    <li>hogyan kérjünk jegyzőkönyvi pontosítást</li>
+                    <li>hogyan kerüljük el a nem túl precíz, félreérthető mondatokat</li>
+                </ul>
+            </div>
+
+            <div class="module-card">
+                <span class="module-num">04 &middot; Modul</span>
+                <h3>27 mondat, amit lehetőleg ne mondj egy felnőttképzési ellenőrzésen</h3>
+                <p>Ezek a mondatok gyakoribbak, mint gondolnád. A felnőttképzési ellenőrzés kiemelt stressz-helyzet és még gyakorlott cégvezetőknél is sokszor előfordulhat (konkrétan: előfordult ... van olyan sztori, hogy nagyon gyakorlott, talpraesett, több céget már elindító cégvezető konkrétan elsírta magát helyszíni szemlén, ezt ő mondta nekem utólag, habár nehezen volt hihető), hogy nem úgy viselkednek, ahogy egyébként egy normál ügymenetnél, vagy akár egy stresszesebb tárgyalásnál.</p>
+                <ul class="module-mini-list">
+                    <li>&bdquo;Ezt mindig így szoktuk.&rdquo;</li>
+                    <li>&bdquo;Majd utólag pótoljuk.&rdquo;</li>
+                    <li>&bdquo;A kolléga tudja, de most nincs itt.&rdquo;</li>
+                </ul>
+            </div>
+
+            <div class="module-card full">
+                <span class="module-num">05 &middot; Modul</span>
+                <h3>Dokumentumprioritási Folyamat</h3>
+                <p>Felnőttképzési ellenőrzésre felkészülésnél az egyik legjobb, amit tehetsz, hogy pontosan látod, mi az, ami nagyon fontos, ami fontos és mi az, ami kevésbé fontos. Ehhez ad támpontot a dokumentumprioritási folyamat:</p>
+
+                <div class="priority-row">
+                    <div class="priority-cell red">
+                        <strong>Piros</strong>
+                        <div class="priority-when">azonnal javítandó</div>
+                        <div class="priority-ex">ellentmondó dokumentum</div>
+                    </div>
+                    <div class="priority-cell amber">
+                        <strong>Sárga</strong>
+                        <div class="priority-when">7 napon belül</div>
+                        <div class="priority-ex">hiányos nyilvántartás</div>
+                    </div>
+                    <div class="priority-cell grey">
+                        <strong>Szürke</strong>
+                        <div class="priority-when">később</div>
+                        <div class="priority-ex">formai finomítás</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 10. ADDITIONAL TOOLS — verbatim -->
+<!-- ============================================== -->
+<section class="additional-band">
+    <div class="container">
+        <div class="reveal" style="margin-bottom: 50px;">
+            <span class="eyebrow muted">Plusz a rendszerhez</span>
+        </div>
+
+        <div class="additional-grid reveal-stagger">
+            <div class="additional-item">
+                <h4>Dokumentumlista ellenőrzés előtt</h4>
+                <p>Mit készítsetek össze?</p>
+            </div>
+            <div class="additional-item">
+                <h4>Adatszolgáltatási ellenőrző blokk</h4>
+                <p>Mi ütközhet a dokumentumokkal?</p>
+            </div>
+            <div class="additional-item">
+                <h4>Minőségirányítási életjel-teszt</h4>
+                <p>Működik-e a rendszer, vagy csak papíron létezik?</p>
+            </div>
+            <div class="additional-item">
+                <h4>Ellenőrzés előtti vezetői checklist</h4>
+                <p>Mit érdemes tudnia a vezetődnek / ügyvezetőnek, mielőtt bárki kopogtat?</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 11. BONUSES — 6, verbatim -->
+<!-- ============================================== -->
+<section class="bonus-section pad-section-lg">
+    <div class="container">
+        <div class="reveal" style="max-width: 720px;">
+            <span class="eyebrow">Bónuszok</span>
+            <h2 style="color: #fff;">Bónuszok a Doksipanda<br>Felnőttképzési Ellenőrzési <strong>Protokollhoz</strong> 2026</h2>
+        </div>
+
+        <div class="bonus-grid reveal-stagger">
+
+            <div class="bonus-card">
+                <div class="bonus-num">Bónusz 01</div>
+                <h3>Felnőttképzési ellenőrzés előtti 24 órás sürgősségi lista</h3>
+                <p>Ha holnap ellenőrzés lenne, ezeket érdemes átnézni először. Sőt, akkor is, ha már felkészültetek a felnőttképzési ellenőrzésre. Példák: mindenhol kint vannak az engedélyszámok? tiszta a helyszín? kint vannak a kötelező tájékoztatók?</p>
+            </div>
+
+            <div class="bonus-card">
+                <div class="bonus-num">Bónusz 02</div>
+                <h3>Felnőttképzési ellenőrzési kommunikációs protokoll</h3>
+                <p>Mondatok, amelyek ártatlanul hangzanak, de jegyzőkönyvben kellemetlenek lehetnek. Sokan nem is tudjátok, hogy egy ártatlannak tűnő kijelentéssel a saját helyzeteteket nehezítitek meg egy ellenőrzésen. Mondattípusok, amelyekkel elősegítheted az együttműködő, konstruktív légkör kialakulását, de mégsem adsz saját magadra és/vagy a képzésekre félreérthető, terhelő kijelentést.</p>
+            </div>
+
+            <div class="bonus-card">
+                <div class="bonus-num">Bónusz 03</div>
+                <h3>Egyoldalas vezetői felkészítő lap</h3>
+                <p>Az ügyvezetőnek / vezetőnek, aki nem akar 80 oldalt olvasni, de nem akar tudatlannak sem látszani egy ellenőrzésen. Fontos tudnod, ha ügyvezető vagy: nem kötelező ott lenned a felnőttképzési ellenőrzésen. Viszont ha már ott vagy, akkor jó, ha tudod &mdash; főleg, ha nem a képzés a főtevékenységetek &mdash; hogy egy felnőttképzési ellenőrzésen a szakértők miről akarnak megbizonyosodni.</p>
+            </div>
+
+            <div class="bonus-card">
+                <div class="bonus-num">Bónusz 04</div>
+                <h3>AI-prompt csomag önkiszolgáló felnőttképzési ellenőrzés átvilágításhoz</h3>
+                <p>Nem döntésre, nem jogértelmezésre, hanem belső ellentmondások, hiányok és dokumentációs vakfoltok megtalálására, jegyzőkönyvben észrevétel írására, az ellenőrzésen készült jegyzőkönyv gyors értelmezésére. (Egy felnőttképzési ellenőrzés akár 8 órán keresztül is tarthat.) A mesterséges intelligencia nagyon sok mindenben tud nektek segíteni egy felnőttképzési ellenőrzésen is. Különösen erőssége a jogi megfogalmazások, amely konkrétan aranyat érhet egy jegyzőkönyvi észrevétel megfogalmazásnál.</p>
+            </div>
+
+            <div class="bonus-card">
+                <div class="bonus-num">Bónusz 05</div>
+                <h3>Sabloncsapdák és Sablonhasználati Profi Lista</h3>
+                <p>Mire figyeljetek, mielőtt bármilyen felnőttképzési sablont használnátok, mely részeket kell mindig átnézni és teljesen a képzésetekre szabni és mikor árt többet a sablon, mint amennyit használ. A sablon nagyon jó, de önmagában nem védelem. Csak akkor segít, ha pontosan azt a működést írja le, ami nálatok ténylegesen történik.</p>
+            </div>
+
+            <div class="bonus-card featured">
+                <div>
+                    <span class="bonus-tag">90 napig érvényes</span>
+                    <div class="bonus-num">Bónusz 06 &middot; Honlap Radar Mini Audit</div>
+                    <h3>Az első benyomás rólatok és a képzésekről</h3>
+                </div>
+                <div>
+                    <p>Amikor megnézik a weboldalatokat a felnőttképzési szakértők a felkészülésnél. Output: készítünk egy 3-5 oldalas, írásos report-ot 5 munkanapon belül. Főoldal, impresszum, jogi nyilatkozatok, ÁSZF, adatkezelési tájékoztató, minőségpolitika, max. 2 képzési oldal, jelentkezési gomb / űrlap útvonal &mdash; piros-sárga-zöld lista alapján. A vásárlástól számított 90 napig érvényes.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 12. PRICING + COUNTDOWN -->
+<!-- ============================================== -->
+<section class="pricing-section pad-section-lg">
+    <div class="pricing-bg-text">2026</div>
+
+    <div class="container">
+        <div class="pricing-header reveal">
+            <span class="eyebrow">Árazás</span>
+            <h2>Megjelenés előtti<br>alapítói klub <strong>kedvezményes ár.</strong></h2>
+        </div>
+
+        <div class="pricing-grid reveal-stagger">
+            <div class="price-card muted">
+                <div>
+                    <div class="price-tier">A teljes rendszer ára bevezetés után</div>
+                    <div class="price-amount">XXXX<span class="price-currency">Ft</span></div>
+                </div>
+                <div class="price-when">2026. augusztus 16-tól</div>
+            </div>
+
+            <div class="price-card muted">
+                <div>
+                    <div class="price-tier">Bevezető ár megjelenéskor</div>
+                    <div class="price-amount">127 000<span class="price-currency">Ft</span></div>
+                </div>
+                <div class="price-when"> &middot; 2026. augusztus 15-én.</div>
+            </div>
+
+            <div class="price-card featured">
+                <div class="price-tag-now">Most aktív</div>
+                <div>
+                    <div class="price-tier">Megjelenés előtti alapítói klub</div>
+                    <div class="price-amount">97 000<span class="price-currency">Ft</span></div>
+                </div>
+                <div>
+                    <div class="price-when">2026. augusztus 14-ig.</div>
+                    <a href="/order.html" class="btn">Helyfoglalás</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- COUNTDOWN -->
+        <div class="countdown-block reveal">
+            <div class="countdown-label">
+                <span class="countdown-label-eyebrow">Alapítói klub deadline</span>
+                <div class="countdown-label-title">2026. augusztus 14. &middot; 23:59</div>
+            </div>
+            <div class="countdown-timer" id="countdown">
+                <div class="countdown-cell">
+                    <div class="countdown-num" id="cd-days">--</div>
+                    <div class="countdown-unit">Nap</div>
+                </div>
+                <div class="countdown-cell">
+                    <div class="countdown-num" id="cd-hours">--</div>
+                    <div class="countdown-unit">Óra</div>
+                </div>
+                <div class="countdown-cell">
+                    <div class="countdown-num" id="cd-mins">--</div>
+                    <div class="countdown-unit">Perc</div>
+                </div>
+                <div class="countdown-cell">
+                    <div class="countdown-num" id="cd-secs">--</div>
+                    <div class="countdown-unit">Mp</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 13. FORMAT — verbatim -->
+<!-- ============================================== -->
+<section class="format-band">
+    <div class="container">
+        <div class="format-content reveal">
+            <span class="eyebrow muted">Forma &amp; szállítás</span>
+            <h2>Letölthető fájlok, amelyek a <strong>tieid</strong> lesznek.</h2>
+            <p>
+                Tehát nem platformra lépsz be és ott láthatod az információt, és ha valami miatt elveszíted a hozzáférést, akkor elveszíted az információt is &mdash; hanem letölthető fájlok. Megjelenés: 2026. augusztus 15.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 14. FINAL DISCLAIMER — verbatim -->
+<!-- ============================================== -->
+<section class="disclaimer-band">
+    <div class="container">
+        <div class="disclaimer-content reveal">
+            <span class="eyebrow">Fontos</span>
+            <h2>Nem ellenőrzési garancia.</h2>
+
+            <p>
+                A Doksipanda Felnőttképzési Ellenőrzési Protokoll 2026 <strong>nem ellenőrzési garancia</strong>.
+            </p>
+            <p>
+                Egyetlen komolyabb dokumentációs hiba költsége ennél jóval nagyobb lehet: bírság, pályázati kockázat, reputációs sérülés, vezetői stressz, sürgősségi tanácsadói költség. Ez a protokoll nem garancia, hanem <strong>ellenőrzés előtti rálátás</strong>.
+            </p>
+            <p>
+                <strong>FONTOS:</strong> a Doksipanda Felnőttképzési Ellenőrzési Protokoll 2026 nem tanácsadás, nem kiskapu, nem garancia és nem jogi szakvélemény, hanem egy rendszer, amellyel önállóan fel tudsz készülni egy felnőttképzési ellenőrzésre, konzultációk nélkül auditálhatod a saját képzéseiteket.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- 15. FINAL CTA -->
+<!-- ============================================== -->
+<section class="final-cta">
+    <div class="container">
+        <div class="final-cta-content reveal">
+            <div class="final-cta-meta">Megjelenés előtti elővásárlás</div>
+            <h2>Igen, kérem elővásárlással<br>a Doksipanda Felnőttképzési Ellenőrzési<br>Protokoll 2026 rendszert.</h2>
+            <a href="/order.html" class="btn">Elővásárlás &middot; 97 000 Ft</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- FOOTER -->
+<!-- ============================================== -->
+<footer>
+    <div class="footer-image-grid reveal">
+        <!-- IMAGE-SWAP: 4 footer photos. Editorial, business, documentation theme. 1:1 ratio. -->
+        <div class="grid-item"><img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=600&q=80" alt=""></div>
+        <div class="grid-item"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt=""></div>
+        <div class="grid-item"><img src="https://images.unsplash.com/photo-1568667256549-094345857637?w=600&q=80" alt=""></div>
+        <div class="grid-item"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt=""></div>
+    </div>
+
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <span class="logo-footer">DOKSIPANDA</span>
+            <p class="footer-tagline">Felnőttképzési Ellenőrzési Protokoll 2026 &mdash; megjelenés: 2026. augusztus 15.</p>
+        </div>
+
+        <div class="footer-nav">
+            <h4>Navigáció</h4>
+            <ul>
+                <li><a href="/">Főoldal</a></li>
+                <li><a href="/order.html">Elővásárlás</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-nav">
+            <h4>Jogi</h4>
+            <ul>
+                <li><a href="#">ÁSZF</a></li>
+                <li><a href="#">Adatkezelés</a></li>
+                <li><a href="#">Impresszum</a></li>
+                <li><a href="#">Kapcsolat</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p class="copyright">© 2026 DOKSIPANDA &middot; MINDEN JOG FENNTARTVA</p>
+        <div class="footer-meta">Megjelenés &middot; 2026.08.15</div>
+    </div>
+</footer>
+
+<script>
+    // ============ REVEAL ON SCROLL ============
+    const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+    const reveal = () => {
+        const winH = window.innerHeight;
+        revealElements.forEach(el => {
+            const top = el.getBoundingClientRect().top;
+            if (top < winH - 80) el.classList.add('active');
+        });
+    };
+    window.addEventListener('scroll', reveal, { passive: true });
+    window.addEventListener('resize', reveal);
+    reveal();
+
+    // ============ COUNTDOWN ============
+    // Deadline: 2026-05-14 23:59:59 Europe/Budapest (CEST = UTC+2 in mid-May)
+    const deadline = new Date('2026-05-14T23:59:59+02:00').getTime();
+    const cd = {
+        days: document.getElementById('cd-days'),
+        hours: document.getElementById('cd-hours'),
+        mins: document.getElementById('cd-mins'),
+        secs: document.getElementById('cd-secs')
+    };
+    function pad(n) { return String(Math.max(0, Math.floor(n))).padStart(2, '0'); }
+    function tick() {
+        const now = Date.now();
+        const dist = deadline - now;
+        if (dist <= 0) {
+            cd.days.textContent = '00';
+            cd.hours.textContent = '00';
+            cd.mins.textContent = '00';
+            cd.secs.textContent = '00';
+            return;
+        }
+        const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((dist / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((dist / (1000 * 60)) % 60);
+        const secs = Math.floor((dist / 1000) % 60);
+        cd.days.textContent = pad(days);
+        cd.hours.textContent = pad(hours);
+        cd.mins.textContent = pad(mins);
+        cd.secs.textContent = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+</script>
+
+<div id="cookie-banner" style="position:fixed; bottom:20px; left:20px; right:20px; background:#000; color:#fff; padding:20px; display:none; z-index:9999; border:1px solid #333; font-family:'Inter', sans-serif; font-size:14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    <div style="flex: 1; margin-right: 20px;">
+        Ez a weboldal sütiket használ a felhasználói élmény javítása és a forgalom elemzése érdekében. 
+        <a href="#" style="color:#1D32F5; text-decoration:underline;">Adatkezelési tájékoztató</a>
+    </div>
+    <div style="display:flex; gap:10px;">
+        <button onclick="handleCookie(false)" style="background:transparent; color:#aaa; border:1px solid #333; padding:8px 15px; cursor:pointer; font-weight:500; transition: 0.2s;">Köszönöm, most nem kérek sütiket. </button>
+        <button onclick="handleCookie(true)" style="background:#1D32F5; color:#fff; border:none; padding:8px 20px; cursor:pointer; font-weight:bold; transition: 0.2s;">Elfogadom a sütiket.</button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const banner = document.getElementById('cookie-banner');
+        const consent = localStorage.getItem('cookie-consent');
+
+        // Ha még nem döntött a felhasználó, megjelenítjük
+        if (!consent) {
+            banner.style.display = 'flex';
+            banner.style.alignItems = 'center';
+            banner.style.flexWrap = 'wrap';
+        }
+
+        window.handleCookie = function(accept) {
+            if (accept) {
+                localStorage.setItem('cookie-consent', 'accepted');
+                // Itt indulhatnak a tracking scriptek (pl. Analytics), ha vannak
+                console.log('Sütik elfogadva');
+            } else {
+                localStorage.setItem('cookie-consent', 'declined');
+                // Itt tilthatod le a nem esszenciális sütiket
+                console.log('Sütik elutasítva');
+            }
+            banner.style.display = 'none';
+        };
+    })();
+</script>
+
+</body>
+</html>
